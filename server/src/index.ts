@@ -5,8 +5,19 @@ import express from "express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
+import { dataSource } from "./libs/data-source";
 
 async function startApolloServer() {
+  // connecting to database
+  dataSource
+    .initialize()
+    .then(() => {
+      console.log("Data Source has been initialized!");
+    })
+    .catch((err) => {
+      console.error("Error during Data Source initialization", err);
+    });
+
   // Required logic for integrating with Express
   const app = express();
   const httpServer = http.createServer(app);
@@ -30,7 +41,7 @@ async function startApolloServer() {
     // By default, apollo-server hosts its GraphQL endpoint at the
     // server root. However, *other* Apollo Server packages host it at
     // /graphql. Optionally provide this to match apollo-server.
-    path: "/",
+    path: "/graphql",
   });
 
   // Modified server startup
