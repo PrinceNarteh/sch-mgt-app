@@ -9,14 +9,7 @@ import { dataSource } from "./libs/data-source";
 
 async function startApolloServer() {
   // connecting to database
-  dataSource
-    .initialize()
-    .then(() => {
-      console.log("Data Source has been initialized!");
-    })
-    .catch((err) => {
-      console.error("Error during Data Source initialization", err);
-    });
+  await dataSource();
 
   // Required logic for integrating with Express
   const app = express();
