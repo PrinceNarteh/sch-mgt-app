@@ -3,7 +3,7 @@ import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import bcrypt from "bcryptjs";
 
 import { Staff } from "../../entities/Staff";
-import { StaffInputType } from "./staffInputType";
+import { CreateStaffInputType } from "./staffInputType";
 
 @Resolver(Staff)
 export class StaffResolver {
@@ -13,7 +13,7 @@ export class StaffResolver {
   }
 
   @Mutation(() => Staff)
-  async createStaff(@Arg("inputData") inputData: StaffInputType) {
+  async createStaff(@Arg("inputData") inputData: CreateStaffInputType) {
     const { email, password } = inputData;
 
     let staff = await Staff.findOne({ where: { email } });
@@ -33,4 +33,10 @@ export class StaffResolver {
 
     return staff;
   }
+
+  @Mutation(() => Staff)
+  async loginStaff(
+    @Arg("email") email: string,
+    @Arg("password") password: string
+  ) {}
 }

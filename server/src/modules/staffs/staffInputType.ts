@@ -3,7 +3,7 @@ import { Field, InputType } from "type-graphql";
 import { Gender, Position } from "../../constants/enums";
 
 @InputType()
-export class StaffInputType {
+export class CreateStaffInputType {
   @Field()
   @MinLength(2)
   @IsString()
@@ -30,6 +30,18 @@ export class StaffInputType {
   @Field()
   @IsEnum(Position)
   position: Position;
+
+  @Field()
+  @MinLength(6)
+  @IsString()
+  password: string;
+}
+
+@InputType()
+export class LoginStaffInputType {
+  @Field()
+  @IsEmail()
+  email: string;
 
   @Field()
   @MinLength(6)
