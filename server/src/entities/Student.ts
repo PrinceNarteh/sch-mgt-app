@@ -1,22 +1,18 @@
-import { Gender, Position } from "../constants/enums";
+import { Gender } from "../constants/enums";
 import { Field, ID, ObjectType, registerEnumType } from "type-graphql";
 import {
   BaseEntity,
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  Unique,
   UpdateDateColumn,
 } from "typeorm";
-import { IsEmailAlreadyExist } from "../modules/staffs/isEmailAlreadyExist";
 
 registerEnumType(Gender, { name: "Gender" });
-registerEnumType(Position, { name: "Position" });
 
-@Entity({ name: "staffs" })
-@Unique(["email"])
+@Entity({ name: "students" })
 @ObjectType()
-export class Staff extends BaseEntity {
+export class Student extends BaseEntity {
   @PrimaryGeneratedColumn()
   @Field(() => ID)
   id: number;
@@ -40,20 +36,13 @@ export class Staff extends BaseEntity {
   })
   gender: Gender;
 
+  @Column({ type: "date" })
+  @Field()
+  dateOfBirth: Date;
+
   @Field()
   @Column()
-  @IsEmailAlreadyExist({ message: "Email already in use." })
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Field((type) => Position)
-  @Column({
-    type: "enum",
-    enum: Position,
-  })
-  position: Position;
+  profilePic: string;
 
   @Column({
     type: "timestamptz",

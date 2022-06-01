@@ -1,5 +1,6 @@
-import { IsEmail, IsString, MinLength } from "class-validator";
+import { IsEmail, IsEnum, IsString, MinLength } from "class-validator";
 import { Field, InputType } from "type-graphql";
+import { Gender, Position } from "../../constants/enums";
 
 @InputType()
 export class StaffInputType {
@@ -21,6 +22,14 @@ export class StaffInputType {
   @Field()
   @IsEmail()
   email: string;
+
+  @Field()
+  @IsEnum(Gender)
+  gender: Gender;
+
+  @Field()
+  @IsEnum(Position)
+  position: Position;
 
   @Field()
   @MinLength(6)
