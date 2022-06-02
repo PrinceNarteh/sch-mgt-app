@@ -1,9 +1,11 @@
 import { ApolloError } from "apollo-server-express";
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import bcrypt from "bcryptjs";
 
 import { Staff } from "../../entities/Staff";
-import { CreateStaffInputType } from "./staffInputType";
+import { CreateStaffInputType, LoginStaffInputType } from "./staffInputType";
+import { MyContext } from "../../utils/myContext";
+import { getToken } from "../../libs/token";
 
 @Resolver(Staff)
 export class StaffResolver {
@@ -36,7 +38,21 @@ export class StaffResolver {
 
   @Mutation(() => Staff)
   async loginStaff(
-    @Arg("email") email: string,
-    @Arg("password") password: string
-  ) {}
+    @Arg("inputData") inputData: LoginStaffInputType,
+    @Ctx() ctx: MyContext
+  ): Promise<Staff> {
+    const { email, password } = inputData;
+
+    // checking if staff is registered
+    let staff = await Staff.findOne({ where: { email } });
+
+    if (!staff || !(await bcrypt.compare(password, staff.password))) {
+      throw new ApolloError("Invalid credentials");
+    }
+
+    const token = getToken(staff.id, staff.email);
+    ctx.req.session.token = token;
+
+    return staff;
+  }
 }
