@@ -1,4 +1,4 @@
-import { Gender, Position } from "../constants/enums";
+import { Gender, Position } from "../../constants/enums";
 import { Field, ID, ObjectType, registerEnumType } from "type-graphql";
 import {
   BaseEntity,
@@ -8,7 +8,7 @@ import {
   Unique,
   UpdateDateColumn,
 } from "typeorm";
-import { IsEmailAlreadyExist } from "../modules/staffs/isEmailAlreadyExist";
+import { IsEmailAlreadyExist } from "./isEmailAlreadyExist";
 
 registerEnumType(Gender, { name: "Gender" });
 registerEnumType(Position, { name: "Position" });

@@ -10,9 +10,8 @@ export const dataSource = async () => {
       username: "postgres",
       password: "root",
       database: "sch_mgt",
-      entities: [path.join(__dirname, "..", "entities", "**/*.ts")],
+      entities: [path.join(__dirname, "..", "modules", "**/*.ts")],
       synchronize: true,
-      // namingStrategy: new Snake
     });
     await conn.initialize();
     console.log("Database connected successfully.");

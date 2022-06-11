@@ -2,7 +2,7 @@ import { ApolloError } from "apollo-server-express";
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import bcrypt from "bcryptjs";
 
-import { Staff } from "../../entities/Staff";
+import { Staff } from "./staff.entity";
 import { CreateStaffInputType, LoginStaffInputType } from "./staffInputType";
 import { MyContext } from "../../utils/myContext";
 import { getToken } from "../../libs/token";

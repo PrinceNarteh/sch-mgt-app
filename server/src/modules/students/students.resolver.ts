@@ -1,4 +1,4 @@
-import { Student } from "../../entities/Student";
+import { Student } from "./student.entity";
 import { Query, Resolver } from "type-graphql";
 
 @Resolver(Student)

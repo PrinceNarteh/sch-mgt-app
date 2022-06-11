@@ -1,4 +1,4 @@
-import { Gender } from "../constants/enums";
+import { Gender } from "../../constants/enums";
 import { Field, ID, ObjectType, registerEnumType } from "type-graphql";
 import {
   BaseEntity,
