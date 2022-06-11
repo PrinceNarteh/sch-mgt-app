@@ -6,6 +6,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  CreateDateColumn,
 } from "typeorm";
 
 registerEnumType(Gender, { name: "Gender" });
@@ -44,10 +45,9 @@ export class Student extends BaseEntity {
   @Column()
   profilePic: string;
 
-  @Column({
+  @CreateDateColumn({
     type: "timestamptz",
     name: "created_at",
-    default: () => "CURRENT_TIMESTAMP",
   })
   createdAt: Date;
 
