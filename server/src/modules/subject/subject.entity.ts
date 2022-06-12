@@ -1,17 +1,15 @@
 import { Field, ID, ObjectType } from "type-graphql";
 import {
   Column,
+  CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Subject } from "../subject/subject.entity";
 
 @Entity()
 @ObjectType()
-export class Course {
+export class Subject {
   @PrimaryGeneratedColumn()
   @Field(() => ID)
   id: number;
@@ -20,22 +18,7 @@ export class Course {
   @Field()
   name: string;
 
-  @ManyToMany(() => Subject)
-  @JoinTable({
-    name: "course_subject",
-    joinColumn: {
-      name: "course",
-      referencedColumnName: "id",
-    },
-    inverseJoinColumn: {
-      name: "subject",
-      referencedColumnName: "id",
-    },
-  })
-  @Field()
-  subjects: Subject[];
-
-  @Column({
+  @CreateDateColumn({
     type: "timestamptz",
     name: "created_at",
   })
